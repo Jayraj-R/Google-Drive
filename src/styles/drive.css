@@ -21,6 +21,7 @@
 .paper__box {
     /* border: 1px solid pink; */
     width: 100%;
+    min-height: 10rem;
     margin: 1rem;
     margin-top: 2rem;
     background: #f6f5f5;
@@ -33,6 +34,7 @@
 .paper__box__list {
     list-style-type: none;
     align-self: flex-start;
+    position: relative;
 }
 
 .paper__box__list__item {
@@ -41,6 +43,7 @@
     align-items: center;
     column-gap: 0.5rem;
     font-size: 1.1rem;
+    position: relative;
 }
 
 .paper__box__list__item__link {
@@ -53,10 +56,32 @@
 }
 
 .paper__box__icon {
-    width: 250px;
-    height: auto;
+    width: 50%;
+    height: 100%;
     margin: 2rem;
     position: relative;
-    left: 50%;
-    transform: translateX(-25%);
+    /* background-color: pink; */
+    /* left: 50%;
+    transform: translateX(-25%); */
+}
+
+@media screen and (max-width: 730px) {
+    .paper__section {
+        /* background-color: lightgreen; */
+        flex-direction: column;
+        row-gap: 1rem;
+    }
+    .paper__box__list__item__link {
+        /* background-color: #1976d2; */
+        white-space: nowrap;
+        overflow: hidden;
+        width: 50vw;
+        position: relative;
+        text-overflow: ellipsis;
+    }
+    .paper__box__list {
+        list-style-position: inside;
+        margin: 0;
+        padding: 1rem;
+    }
 }

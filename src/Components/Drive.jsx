@@ -102,7 +102,7 @@ const Drive = () => {
 	return (
 		<>
 			<Grid container className='container'>
-				<Grid item xs={11} sm={10} md={5}>
+				<Grid item xs={11} sm={10} md={8}>
 					<Paper className='paper'>
 						<section className='paper__section'>
 							<Typography
@@ -167,7 +167,9 @@ const Drive = () => {
 											})}
 										</>
 									) : (
-										<IconEmpty className='paper__box__icon' />
+										<Grid item xs={12}>
+											<IconEmpty className='paper__box__icon' />
+										</Grid>
 									)}
 								</ul>
 							</div>
