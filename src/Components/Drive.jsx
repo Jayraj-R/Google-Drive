@@ -7,16 +7,13 @@ import { gapi, loadAuth2 } from 'gapi-script';
 
 const Drive = () => {
 	const [user, setUser] = useState(null);
-	const [openPicker, data, authResponse] = useDrivePicker();
+	const [openPicker, data] = useDrivePicker();
 	const [fileList, setFileList] = useState([]);
 
 	useEffect(() => {
+		// Updating signed in user after signing in
 		const setAuth2 = async () => {
-			const auth2 = await loadAuth2(
-				gapi,
-				'90059057405-72151fio0d8r9r58a4ge09kgr9790vel.apps.googleusercontent.com',
-				''
-			);
+			const auth2 = await loadAuth2(gapi, process.env.REACT_APP_CLENT_ID, '');
 			if (auth2.isSignedIn.get()) {
 				updateUser(auth2.currentUser.get());
 			} else {
@@ -27,13 +24,10 @@ const Drive = () => {
 	}, []);
 
 	useEffect(() => {
+		// loading llogin/sign in button
 		if (!user) {
 			const setAuth2 = async () => {
-				const auth2 = await loadAuth2(
-					gapi,
-					'90059057405-72151fio0d8r9r58a4ge09kgr9790vel.apps.googleusercontent.com',
-					''
-				);
+				const auth2 = await loadAuth2(gapi, process.env.REACT_APP_CLENT_ID, '');
 				attachSignin(document.getElementById('customBtn'), auth2);
 			};
 			setAuth2();
@@ -41,6 +35,8 @@ const Drive = () => {
 	}, [user]);
 
 	const updateUser = (currentUser) => {
+		// getting basic informatin about the user
+
 		const name = currentUser.getBasicProfile().getName();
 		const profileImg = currentUser.getBasicProfile().getImageUrl();
 		setUser({
@@ -51,6 +47,7 @@ const Drive = () => {
 	};
 
 	const attachSignin = (element, auth2) => {
+		// Updating user variable
 		auth2.attachClickHandler(
 			element,
 			{},
@@ -64,6 +61,7 @@ const Drive = () => {
 	};
 
 	const handleOpenPicker = () => {
+		// setting up file picker window
 		openPicker({
 			clientId: process.env.REACT_APP_CLENT_ID,
 			developerKey: process.env.REACT_APP_DEV_KEY,
@@ -77,6 +75,7 @@ const Drive = () => {
 		});
 	};
 	useEffect(() => {
+		// UPdating file list stored in the react app
 		if (data) {
 			const temp = [];
 			data.docs.map((i) => {
@@ -91,6 +90,7 @@ const Drive = () => {
 	}, [data]);
 
 	const signOut = () => {
+		// Handling log out button
 		const auth2 = gapi.auth2.getAuthInstance();
 		auth2.signOut().then(() => {
 			setUser(null);
@@ -98,7 +98,6 @@ const Drive = () => {
 			console.log('User signed out.');
 		});
 	};
-	const arr = ['hi', 'helllo'];
 	console.log(fileList);
 	return (
 		<>
