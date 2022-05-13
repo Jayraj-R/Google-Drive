@@ -17,18 +17,18 @@ const Drive = () => {
 			if (auth2.isSignedIn.get()) {
 				updateUser(auth2.currentUser.get());
 			} else {
-				attachSignin(document.getElementById('customBtn'), auth2);
+				attachSignin(document.getElementById('loginBtn'), auth2);
 			}
 		};
 		setAuth2();
 	}, []);
 
 	useEffect(() => {
-		// loading llogin/sign in button
+		// loading login/sign in button
 		if (!user) {
 			const setAuth2 = async () => {
 				const auth2 = await loadAuth2(gapi, process.env.REACT_APP_CLENT_ID, '');
-				attachSignin(document.getElementById('customBtn'), auth2);
+				attachSignin(document.getElementById('loginBtn'), auth2);
 			};
 			setAuth2();
 		}
@@ -77,15 +77,7 @@ const Drive = () => {
 	useEffect(() => {
 		// UPdating file list stored in the react app
 		if (data) {
-			const temp = [];
-			data.docs.map((i) => {
-				temp.push({
-					name: i.name,
-					url: i.url,
-				});
-			});
-			// console.log(temp);
-			setFileList([...fileList, ...temp]);
+			setFileList([...fileList, ...data.docs]);
 		}
 	}, [data]);
 
@@ -130,7 +122,7 @@ const Drive = () => {
 									// style={{ background: 'pink' }}
 									className='paper__button'
 									variant='contained'
-									id='customBtn'
+									id='loginBtn'
 								>
 									Connect to Google Drive
 								</Button>
@@ -158,6 +150,7 @@ const Drive = () => {
 														<a
 															href={item.url}
 															target='_blank'
+															rel='noreferrer'
 															className='paper__box__list__item__link'
 														>
 															{item.name} - Google Drive
